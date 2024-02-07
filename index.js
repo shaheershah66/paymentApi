@@ -5,15 +5,12 @@ const Stripe = require("stripe");
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 const app = express();
 const PORT = 3000;
-const APP_URL = '192.168.0.112';
 // const APP_URL = '103.93.218.32';
 
 
 app.use("/stripe", express.raw({ type: "*/*" }));
 app.use(express.json());
-app.use(cors({
-  origin: `${APP_URL}:19000`,
-}));
+app.use(cors());
 
 app.post("/pay", async (req, res) => {
   try {
@@ -58,4 +55,4 @@ app.post("/pay", async (req, res) => {
 //   res.json({ ok: true });
 // });
 
-app.listen(PORT, APP_URL, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
